@@ -14,8 +14,9 @@
   <body class="d-flex flex-column min-vh-100">
     <%= render 'shared/navbar' %>
     <div class="container mt-3">
+      <%= render 'shared/flash' %>
       <%= yield %>
     </div>
-    <%= render "shared/footer" %>
+    <%= render 'shared/footer' %>
   </body>
 </html>
