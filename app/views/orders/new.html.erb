@@ -1,0 +1,29 @@
+<div class="row justify-content-center">
+  <div class="col-md-8 col-10">
+    <%= form_with model: @order do |f| %>
+      <div class="mb-3 form-field">
+        <%= f.label :username, "Name", class: "form-label fw-bold" %>
+        <%= f.text_field :username, autofocus: true, class: "form-control" %>
+      </div>   
+      
+      <div class="mb-3 form-field">
+        <%= f.label :amount, "Amount", class: "form-label fw-bold" %>
+        <%= f.number_field :amount, value: 100, min: 10, class: "form-control" %>
+      </div>
+
+      <div class="mb-3 form-field">
+        <%= f.label :memo, "Memo", class: "form-label fw-bold" %>
+        <%= f.text_area :memo, rows: 5, class: "form-control" %>
+      </div>
+
+      <div class="mb-3 form-field">
+        <%= f.label :pay_type, "Pay", class: "form-label fw-bold" %>
+        <%= f.select :pay_type, Order.pay_types %>
+      </div>
+
+      <div class="mb-3 form-field">
+        <%= f.submit "Pay!", class: "btn btn-danger fw-bold" %>
+      </div>
+    <% end %>
+  </div>
+</div>
