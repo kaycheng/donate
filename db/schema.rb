@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_26_123859) do
+ActiveRecord::Schema.define(version: 2021_11_19_042730) do
+
+  create_table "orders", force: :cascade do |t|
+    t.string "order_no"
+    t.string "username"
+    t.integer "amount"
+    t.string "transaction_no"
+    t.integer "user_id", null: false
+    t.text "memo"
+    t.string "pay_type"
+    t.string "pay_token"
+    t.datetime "paid_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_no"], name: "index_orders_on_order_no", unique: true
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,4 +40,5 @@ ActiveRecord::Schema.define(version: 2021_10_26_123859) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "orders", "users"
 end
