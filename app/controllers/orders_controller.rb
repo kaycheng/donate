@@ -8,10 +8,19 @@ class OrdersController < ApplicationController
   def create
     @order = current_user.orders.new(order_params)
     if @order.save
-      # do something
-      redirect_to root_path, notice: "Thank you for donating!"
+      gateway = Sinopac::FunBiz::Gateway.new
+      order = Sinopac::FunBiz::Order.new(
+        order_no: @order.order_no,
+        amount: @order.amount,
+        product_name: 'test'
+      )
+      result = gateway.pay!(order: order, pay_type: :credit_card)
+      if result.success?
+        redirect_to result.payment_url
+      else
+        rediect_to root_path, notice: 'There is some errors occurred.'
+      end
     else
-      # do something
       render :new, flash_now: "There are some errors occured!"
     end
   end
